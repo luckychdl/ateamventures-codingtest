@@ -1,7 +1,7 @@
 ## 프로젝트 설치방법
 ```plaintext
 # 프로젝트 설치
-yarn
+yarn install
 ```
 ## mock server 시작
 ```plaintext

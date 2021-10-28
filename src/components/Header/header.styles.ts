@@ -30,5 +30,25 @@ export const MenuWrapper = styled.div`
   display:flex;
   justify-content: space-between;
   width:120px;
-  padding-right: 20px
+  padding-right: 20px;
+`
+export const Hamberger = styled.img`
+  display:none;
+  @media(max-width:768px) {
+    display:flex;
+    margin-left: 23px;
+  }
+`
+export const Wrapper = styled.div`
+  display:flex;
+  width:100%;
+`
+export const OverLay = styled.div`
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 998;
+    /* display: none; */
 `

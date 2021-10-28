@@ -11,21 +11,25 @@ const MenuProps = {
       maxHeight: ITEM_HEIGHT * 4 ,
       width: 100,
       marginLeft: 10,
-      marginTop: 2
+      marginTop: 2,
     },
   },
 };
-
+interface IProps {
+  setValue:any;
+  value:any;
+  setMaterialFilter:any;
+}
 const list = [
-  "알루미늄",
-  "탄소강",
-  "구리",
-  "합금강",
-  "강철"
+  { id: 1, value: "알루미늄" },
+  { id: 2, value: "탄소강" },
+  { id: 3, value: "구리" },
+  { id: 4, value: "합금강" },
+  { id: 5, value: "강철" },
 ]
 
-export default function SelectMaterial() {
-  const [checkedData, setCheckedData] = useState<string[]>([])
+export default function SelectMaterial(props:IProps) {
+  const [checkedData, setCheckedData] = useState([])
 
   const handleChange = (event: SelectChangeEvent<typeof checkedData>) => {
     const {
@@ -34,12 +38,14 @@ export default function SelectMaterial() {
     setCheckedData(
       typeof value === 'string' ? value.split(',') : value,
     );
+    props.setValue(value)
+    props.setMaterialFilter(value)
   };
 const text = {
   fontSize:"2px"
 }
   return (
-    <div>
+    <div style={{marginRight:24}}>
       <FormControl sx={{ width: 80, height:30 }}>
 
         <Select
@@ -47,18 +53,11 @@ const text = {
           id="demo-multiple-checkbox"
           multiple
           displayEmpty
-          inputProps={{
-            sx: {
-              "&.MuiOutlinedInput-input:hover": {
-                borderColor:"#1565c0"
-              },
-            }
-          }}
           value={checkedData}
           onChange={handleChange}
-          renderValue={(selected) => selected.length ? `재료 (${selected.length})` : "재료"}
+          renderValue={(value) => value.length ? `재료 (${value.length})` : "재료"}
           MenuProps={MenuProps}
-          style={{fontSize:4 }}
+          style={{fontSize:4 ,height:32}}
           
         >
           {list.map((list) => (
@@ -66,9 +65,9 @@ const text = {
               height: 30,
               padding: "0em",
             }} 
-            key={list} value={list}>
-              <Checkbox checked={checkedData.indexOf(list) > -1} style={{transform:"scale(0.7)"}}/>
-              <ListItemText primaryTypographyProps={{style: text}} primary={list} />
+            key={list.id} value={list.value}>
+              <Checkbox checked={props.value.length === 0 ? false : checkedData.indexOf(list.value) > -1} style={{transform:"scale(0.7)"}}/>
+              <ListItemText primaryTypographyProps={{style: text}} primary={list.value} />
             </MenuItem>
           ))}
         </Select>
